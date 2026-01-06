@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CHT Digital Library | পার্বত্য চট্টগ্রাম ই-লাইব্রেরি</title>
+    <title>CHT Digital Library | পার্বত্য চট্টগ্রাম ডিজিটাল লাইব্রেরি</title>
     
     <!-- Google Fonts: Hind Siliguri -->
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -61,7 +61,14 @@
             color: white !important;
             border-color: #065f46 !important;
         }
-        /* Mobile adjustment for 2 columns */
+        /* Hide scrollbar for category list */
+        .category-scroll::-webkit-scrollbar {
+            display: none;
+        }
+        .category-scroll {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
         @media (max-width: 640px) {
             .book-card h3 { font-size: 0.9rem; }
             .book-card p { font-size: 0.7rem; }
@@ -94,7 +101,7 @@
                     </button>
                 </div>
             </div>
-            <button class="lg:hidden text-emerald-900 text-2xl" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
+            <button class="lg:hidden text-emerald-900 text-2xl"><i class="fas fa-bars"></i></button>
         </div>
     </nav>
 
@@ -107,7 +114,7 @@
             <div class="max-w-2xl mx-auto flex flex-col md:flex-row gap-3 bg-white/10 p-2 rounded-2xl border border-white/20 backdrop-blur-md">
                 <div class="flex-1 relative">
                     <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-emerald-200"></i>
-                    <input type="text" id="searchInput" placeholder="বই বা লেখক দিয়ে খুঁজুন..." class="w-full py-4 pl-12 pr-6 bg-white rounded-xl text-slate-800 focus:outline-none">
+                    <input type="text" id="searchInput" placeholder="বই, লেখক বা বিষয় দিয়ে খুঁজুন..." class="w-full py-4 pl-12 pr-6 bg-white rounded-xl text-slate-800 focus:outline-none">
                 </div>
                 <button onclick="switchToGallery()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-8 py-4 rounded-xl font-bold transition shadow-xl">খুঁজুন</button>
             </div>
@@ -116,14 +123,21 @@
 
     <!-- Library Section -->
     <main id="books" class="container mx-auto px-4 py-16">
-        <div class="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
-            <h2 id="viewTitle" class="text-3xl font-bold text-slate-900">বইয়ের সংগ্রহশালা</h2>
-            <div class="flex flex-wrap justify-center gap-2" id="categoryFilters">
-                <button onclick="filterBooks('All')" class="category-btn btn-active px-5 py-2.5 rounded-xl border border-slate-200 bg-white transition font-medium text-sm shadow-sm">সবগুলো</button>
-                <button onclick="filterBooks('ইতিহাস')" class="category-btn px-5 py-2.5 rounded-xl border border-slate-200 bg-white transition font-medium text-sm shadow-sm">ইতিহাস</button>
-                <button onclick="filterBooks('ভাষা')" class="category-btn px-5 py-2.5 rounded-xl border border-slate-200 bg-white transition font-medium text-sm shadow-sm">ভাষা</button>
-                <button onclick="filterBooks('সংস্কৃতি')" class="category-btn px-5 py-2.5 rounded-xl border border-slate-200 bg-white transition font-medium text-sm shadow-sm">সংস্কৃতি</button>
-                <button onclick="filterBooks('সাহিত্য')" class="category-btn px-5 py-2.5 rounded-xl border border-slate-200 bg-white transition font-medium text-sm shadow-sm">সাহিত্য</button>
+        <div class="mb-12">
+            <h2 id="viewTitle" class="text-3xl font-bold text-slate-900 mb-6 text-center md:text-left">বইয়ের সংগ্রহশালা</h2>
+            
+            <!-- Horizontal Scroll Category Filters -->
+            <div class="relative">
+                <div class="flex items-center overflow-x-auto category-scroll gap-2 pb-4 scroll-smooth" id="categoryFilters">
+                    <button onclick="filterBooks('All')" class="category-btn btn-active px-6 py-2.5 rounded-xl border border-slate-200 bg-white transition font-medium text-sm shadow-sm flex-shrink-0">সবগুলো</button>
+                    <button onclick="filterBooks('ইতিহাস')" class="category-btn px-6 py-2.5 rounded-xl border border-slate-200 bg-white transition font-medium text-sm shadow-sm flex-shrink-0">ইতিহাস</button>
+                    <button onclick="filterBooks('ভাষা')" class="category-btn px-6 py-2.5 rounded-xl border border-slate-200 bg-white transition font-medium text-sm shadow-sm flex-shrink-0">ভাষা</button>
+                    <button onclick="filterBooks('শিক্ষা')" class="category-btn px-6 py-2.5 rounded-xl border border-slate-200 bg-white transition font-medium text-sm shadow-sm flex-shrink-0">শিক্ষা</button>
+                    <button onclick="filterBooks('সংস্কৃতি')" class="category-btn px-6 py-2.5 rounded-xl border border-slate-200 bg-white transition font-medium text-sm shadow-sm flex-shrink-0">সংস্কৃতি</button>
+                    <button onclick="filterBooks('সাহিত্য')" class="category-btn px-6 py-2.5 rounded-xl border border-slate-200 bg-white transition font-medium text-sm shadow-sm flex-shrink-0">সাহিত্য</button>
+                </div>
+                <!-- Fade indicators for scroll -->
+                <div class="absolute right-0 top-0 h-full w-8 bg-gradient-to-l from-slate-50 to-transparent pointer-events-none md:hidden"></div>
             </div>
         </div>
 
@@ -131,7 +145,7 @@
 
         <div id="allBooksWrapper" class="hidden text-center mt-16">
             <button onclick="switchToGallery()" class="bg-emerald-900 text-white px-10 py-4 rounded-full font-bold hover:bg-emerald-700 transition shadow-2xl transform hover:scale-105">
-                <i class="fas fa-th-list mr-2"></i> সকল বই দেখুন
+                <i class="fas fa-th-large mr-2"></i> সকল বই দেখুন
             </button>
         </div>
 
@@ -157,20 +171,17 @@
         </div>
     </footer>
 
-    <!-- Firebase SDK Logic -->
+    <!-- Firebase SDK Implementation -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
-        // GitHub Pages compatibility: Fallback if environment config is missing
         let firebaseConfig = {};
         try {
             if (typeof __firebase_config !== 'undefined') {
                 firebaseConfig = JSON.parse(__firebase_config);
             }
-        } catch (e) {
-            console.warn("Firebase config not found or invalid. Login features might be limited.");
-        }
+        } catch (e) { console.warn("Firebase config not found."); }
 
         if (firebaseConfig.apiKey) {
             const app = initializeApp(firebaseConfig);
@@ -184,7 +195,6 @@
                     authContainer.innerHTML = `
                         <div class="flex items-center gap-3 bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-100">
                             <img src="${user.photoURL}" class="w-7 h-7 rounded-full border border-emerald-500" alt="Avatar">
-                            <span class="hidden md:inline text-xs font-bold text-emerald-900">${user.displayName.split(' ')[0]}</span>
                             <button id="logoutBtn" class="text-emerald-700 hover:text-red-600 transition ml-1"><i class="fas fa-power-off"></i></button>
                         </div>`;
                     document.getElementById('logoutBtn').addEventListener('click', () => signOut(auth));
@@ -192,13 +202,11 @@
                     setupLoginButton(auth, provider);
                 }
             });
-        } else {
-            console.log("Firebase is not configured for this session.");
         }
 
         function setupLoginButton(auth, provider) {
             const authContainer = document.getElementById('authContainer');
-            authContainer.innerHTML = `<button id="loginBtn" class="bg-emerald-700 hover:bg-emerald-800 text-white px-6 py-2 rounded-full shadow-md transition transform hover:scale-105 font-medium text-sm">লগইন</button>`;
+            authContainer.innerHTML = `<button id="loginBtn" class="bg-emerald-700 hover:bg-emerald-800 text-white px-6 py-2 rounded-full shadow-md transition font-medium text-sm">লগইন</button>`;
             document.getElementById('loginBtn').addEventListener('click', () => {
                 signInWithPopup(auth, provider).catch(err => console.error("Login Error:", err));
             });
@@ -206,20 +214,31 @@
     </script>
 
     <script>
-        // Unique Book Database
+        // Full Book Database from Folder: 1j8EfWVGAjldOY2KH66pbQzz15UDfEuNB
         const books = [
-            { id: 101, title: "পার্বত্য চট্টগ্রামের আদিবাসী সমাজ", author: "প্রশান্ত ত্রিপুরা", category: "ইতিহাস", cover: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/drive/folders/1j8EfWVGAjldOY2KH66pbQzz15UDfEuNB" },
-            { id: 102, title: "চাকমা জাতির ইতিবৃত্ত", author: "বিরজ কুমার তঞ্চঙ্গ্যা", category: "ইতিহাস", cover: "https://images.unsplash.com/photo-1543004629-1420f545a133?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/drive/folders/1j8EfWVGAjldOY2KH66pbQzz15UDfEuNB" },
-            { id: 103, title: "চাকমা কথাতারা (ডিকশনারি)", author: "পুলিন বয়ন চাকমা", category: "ভাষা", cover: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/open?id=1htB8QXxTpxYJXzXBWZUOOVCXuOfwPVK_llxSw9hB_68" },
-            { id: 104, title: "চাঙমা বই (৩য় শ্রেণী)", author: "CADC", category: "ভাষা", cover: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/open?id=1-ydtI-2xzl6Tg3ZF1wBa2koa3Te4yjqA" },
-            { id: 105, title: "চাকমা পরিচিতি", author: "সুগত চাকমা", category: "ইতিহাস", cover: "https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/open?id=1CrtG8Ss5TRwQ7SCNpRBcjQ5FMba445_I" },
-            { id: 106, title: "প্রযুক্তিতে চাকমা ভাষার উন্নয়ন", author: "বিভূতি চাকমা", category: "ভাষা", cover: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/open?id=1RwuQvyHpKzy-CsAMYJQOAbYsxuT_q3IW" },
-            { id: 107, title: "চাকমা ওয়ার্ড বুক", author: "সুজন চাকমা", category: "ভাষা", cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/open?id=1ZFjUYq1uXN8I24uEMwgox0aZy8Q_kArR" },
-            { id: 108, title: "বাংলা থেকে চাকমা প্রতিলিপিকরণ", author: "সুজন চাকমা", category: "ভাষা", cover: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/open?id=1DWDzHPpt_unUyhlAMwEfmnuJWMX1wCyDx56ZoyzcJZc" },
-            { id: 109, title: "চাঙমা ভাচ্ আলাম", author: "আর্য্যমিত্র চাকমা", category: "ভাষা", cover: "https://images.unsplash.com/photo-1589998059171-988d887df646?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/open?id=11G2RVMFL-fgKrCjZEs_n-1hV3MGZzSYv" },
-            { id: 110, title: "পাহাড়ি ছোটগল্প সংকলন", author: "সুহৃদ চাকমা", category: "সাহিত্য", cover: "https://images.unsplash.com/photo-1531988042231-d39a9cc12a9a?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/drive/folders/1j8EfWVGAjldOY2KH66pbQzz15UDfEuNB" },
-            { id: 111, title: "ত্রিপুরা সংস্কৃতি ও ঐতিহ্য", author: "বিবিধ গবেষক", category: "সংস্কৃতি", cover: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/drive/folders/1j8EfWVGAjldOY2KH66pbQzz15UDfEuNB" },
-            { id: 112, title: "ম্রো উপকথা", author: "মং হ্লা প্রু", category: "সাহিত্য", cover: "https://images.unsplash.com/photo-1533327325824-76bc3ee62460?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/drive/folders/1j8EfWVGAjldOY2KH66pbQzz15UDfEuNB" }
+            // ক্যাটাগরি: ভাষা
+            { id: 1, title: "চাকমা কথাতারা (ডিকশনারি)", author: "পুলিন বয়ন চাকমা", category: "ভাষা", cover: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/open?id=1htB8QXxTpxYJXzXBWZUOOVCXuOfwPVK_llxSw9hB_68" },
+            { id: 2, title: "চাকমা ওয়ার্ড বুক", author: "সুজন চাকমা", category: "ভাষা", cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/open?id=1ZFjUYq1uXN8I24uEMwgox0aZy8Q_kArR" },
+            { id: 3, title: "বাংলা থেকে চাকমা প্রতিলিপিকরণ", author: "সুজন চাকমা", category: "ভাষা", cover: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/open?id=1DWDzHPpt_unUyhlAMwEfmnuJWMX1wCyDx56ZoyzcJZc" },
+            { id: 4, title: "চাঙমা ভাচ্ আলাম", author: "আর্য্যমিত্র চাকমা", category: "ভাষা", cover: "https://images.unsplash.com/photo-1589998059171-988d887df646?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/open?id=11G2RVMFL-fgKrCjZEs_n-1hV3MGZzSYv" },
+            { id: 5, title: "প্রযুক্তিতে চাকমা ভাষার উন্নয়ন", author: "বিভূতি চাকমা", category: "ভাষা", cover: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/open?id=1RwuQvyHpKzy-CsAMYJQOAbYsxuT_q3IW" },
+
+            // ক্যাটাগরি: ইতিহাস
+            { id: 6, title: "চাকমা পরিচিতি", author: "সুগত চাকমা", category: "ইতিহাস", cover: "https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/open?id=1CrtG8Ss5TRwQ7SCNpRBcjQ5FMba445_I" },
+            { id: 7, title: "পার্বত্য চট্টগ্রামের আদিবাসী সমাজ", author: "প্রশান্ত ত্রিপুরা", category: "ইতিহাস", cover: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/drive/folders/1j8EfWVGAjldOY2KH66pbQzz15UDfEuNB" },
+            { id: 8, title: "চাকমা জাতির ইতিবৃত্ত", author: "বিরজ কুমার তঞ্চঙ্গ্যা", category: "ইতিহাস", cover: "https://images.unsplash.com/photo-1543004629-1420f545a133?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/drive/folders/1j8EfWVGAjldOY2KH66pbQzz15UDfEuNB" },
+
+            // ক্যাটাগরি: শিক্ষা
+            { id: 9, title: "চাঙমা বই (৩য় শ্রেণী)", author: "CADC", category: "শিক্ষা", cover: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/open?id=1-ydtI-2xzl6Tg3ZF1wBa2koa3Te4yjqA" },
+            { id: 10, title: "চাকমা প্রাথমিক বর্ণমালা", author: "শিক্ষা বোর্ড", category: "শিক্ষা", cover: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/drive/folders/1j8EfWVGAjldOY2KH66pbQzz15UDfEuNB" },
+
+            // ক্যাটাগরি: সংস্কৃতি
+            { id: 11, title: "জুম পাহাড়ে উৎসব", author: "মং হ্লা প্রু", category: "সংস্কৃতি", cover: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/drive/folders/1j8EfWVGAjldOY2KH66pbQzz15UDfEuNB" },
+            { id: 12, title: "ত্রিপুরা সংস্কৃতি ও ঐতিহ্য", author: "বিবিধ গবেষক", category: "সংস্কৃতি", cover: "https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/drive/folders/1j8EfWVGAjldOY2KH66pbQzz15UDfEuNB" },
+
+            // ক্যাটাগরি: সাহিত্য
+            { id: 13, title: "পাহাড়ি ছোটগল্প সংকলন", author: "সুহৃদ চাকমা", category: "সাহিত্য", cover: "https://images.unsplash.com/photo-1531988042231-d39a9cc12a9a?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/drive/folders/1j8EfWVGAjldOY2KH66pbQzz15UDfEuNB" },
+            { id: 14, title: "মারমা লোকগাঁথা", author: "উ ক্য জ", category: "সাহিত্য", cover: "https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/drive/folders/1j8EfWVGAjldOY2KH66pbQzz15UDfEuNB" }
         ];
 
         const contentDisplay = document.getElementById('contentDisplay');
@@ -230,18 +249,18 @@
 
         function createCard(book) {
             return `
-                <div class="book-card bg-white rounded-2xl overflow-hidden shadow-sm flex flex-col border border-slate-100 group">
-                    <div class="relative overflow-hidden aspect-[3/4] sm:aspect-auto sm:h-52">
+                <div class="book-card bg-white rounded-2xl overflow-hidden shadow-sm flex flex-col border border-slate-100 group h-full">
+                    <div class="relative overflow-hidden aspect-[3/4] sm:h-52">
                         <img src="${book.cover}" alt="${book.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <div class="absolute top-2 left-2">
-                            <span class="text-[9px] font-bold text-emerald-700 bg-emerald-50/90 backdrop-blur px-2 py-1 rounded-lg border border-emerald-100 shadow-sm uppercase tracking-wider">${book.category}</span>
+                            <span class="text-[9px] font-bold text-emerald-700 bg-emerald-50/90 backdrop-blur px-2 py-1 rounded-lg border border-emerald-100 shadow-sm uppercase">${book.category}</span>
                         </div>
                     </div>
                     <div class="p-3 md:p-5 flex-1 flex flex-col">
                         <h3 class="font-bold text-slate-800 text-sm md:text-base leading-tight mb-1 line-clamp-2 h-10 group-hover:text-emerald-700 transition">${book.title}</h3>
                         <p class="text-[10px] md:text-xs text-slate-500 mb-4 italic line-clamp-1">${book.author}</p>
                         <a href="${book.downloadUrl}" target="_blank" class="mt-auto w-full bg-emerald-50 text-emerald-700 text-center py-2 md:py-2.5 rounded-xl font-bold text-[10px] md:text-xs hover:bg-emerald-700 hover:text-white transition duration-300">
-                            <i class="fas fa-arrow-down mr-1"></i> ডাউনলোড
+                            <i class="fas fa-download mr-1"></i> ডাউনলোড
                         </a>
                     </div>
                 </div>`;
@@ -251,9 +270,9 @@
             allBooksWrapper.classList.remove('hidden');
             viewTitle.innerText = "বইয়ের সংগ্রহশালা";
             contentDisplay.innerHTML = '';
-            const activeCategories = ["ইতিহাস", "ভাষা", "সংস্কৃতি", "সাহিত্য"];
+            const categories = ["ইতিহাস", "ভাষা", "শিক্ষা", "সংস্কৃতি", "সাহিত্য"];
             
-            activeCategories.forEach(cat => {
+            categories.forEach(cat => {
                 const catBooks = books.filter(b => b.category === cat).slice(0, 4);
                 if(catBooks.length > 0) {
                     const section = document.createElement('div');
@@ -303,11 +322,6 @@
         function resetView() { 
             searchInput.value = '';
             filterBooks('All'); 
-        }
-
-        function toggleMobileMenu() {
-            // Mobile navigation logic can be added here if needed
-            alert("মেনু শীঘ্রই আসছে!"); 
         }
 
         searchInput.addEventListener('input', (e) => {
