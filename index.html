@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CHT Digital Library | পার্বত্য চট্টগ্রাম ই-লাইব্রেরি</title>
     
-    <!-- Google Fonts -->
+    <!-- Google Fonts: Hind Siliguri -->
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS -->
@@ -53,32 +53,20 @@
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .book-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
         }
         .btn-active {
             background-color: #065f46 !important;
             color: white !important;
             border-color: #065f46 !important;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #065f46;
-            border-radius: 10px;
         }
         /* Mobile adjustment for 2 columns */
         @media (max-width: 640px) {
-            .book-card h3 { font-size: 0.95rem; }
-            .book-card p { font-size: 0.75rem; }
-            .book-card .btn-text { font-size: 0.7rem; }
-            .book-card .meta-text { font-size: 0.65rem; }
-            .book-card img { height: 180px; }
+            .book-card h3 { font-size: 0.9rem; }
+            .book-card p { font-size: 0.7rem; }
+            .book-card img { height: 160px; }
+            .hero-title { font-size: 2.2rem; }
         }
     </style>
 </head>
@@ -98,156 +86,140 @@
             </a>
             
             <div class="hidden lg:flex items-center space-x-8 font-medium">
-                <a href="#" class="text-emerald-900 hover:text-emerald-600 transition duration-300" onclick="resetView()">হোম</a>
-                <a href="#books" class="text-emerald-900 hover:text-emerald-600 transition duration-300">লাইব্রেরি</a>
-                <a href="#about" class="text-emerald-900 hover:text-emerald-600 transition duration-300">সম্পর্কে</a>
-                <button class="bg-emerald-700 hover:bg-emerald-800 text-white px-6 py-2 rounded-full shadow-md transition duration-300 transform hover:scale-105">
-                    লগইন
-                </button>
+                <a href="#" class="text-emerald-900 hover:text-emerald-600 transition" onclick="resetView()">হোম</a>
+                <a href="#books" class="text-emerald-900 hover:text-emerald-600 transition">লাইব্রেরি</a>
+                <div id="authContainer">
+                    <button id="loginBtn" class="bg-emerald-700 hover:bg-emerald-800 text-white px-6 py-2 rounded-full transition shadow-md">
+                        লগইন
+                    </button>
+                </div>
             </div>
-
-            <button class="lg:hidden text-emerald-900 text-2xl">
-                <i class="fas fa-bars"></i>
-            </button>
+            <button class="lg:hidden text-emerald-900 text-2xl" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header class="hero-section relative py-24 md:py-32 px-4 overflow-hidden">
-        <div class="container mx-auto relative z-10">
-            <div class="max-w-4xl mx-auto text-center">
-                <span class="inline-block bg-emerald-500/20 text-emerald-200 px-4 py-1 rounded-full text-sm font-medium mb-6 border border-emerald-500/30">
-                    <i class="fas fa-star mr-2"></i>পার্বত্য চট্টগ্রামের সর্বপ্রথম ই-লাইব্রেরি
-                </span>
-                <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-8 leading-tight">
-                    পাহাড়ের ইতিহাস ও সংস্কৃতির <br> <span class="text-emerald-400">ডিজিটাল মহাফেজখানা</span>
-                </h1>
-                <p class="text-lg md:text-xl text-emerald-100/90 mb-12 max-w-2xl mx-auto leading-relaxed">
-                    চাকমা, মারমা, ত্রিপুরাসহ সকল জাতিগোষ্ঠীর দুষ্প্রাপ্য বই ও গবেষণাপত্র এখন আপনার হাতের মুঠোয়। জ্ঞানের আলো ছড়িয়ে পড়ুক পাহাড়ের প্রতিটি কোণায়।
-                </p>
-                
-                <!-- Advanced Search Box -->
-                <div class="max-w-2xl mx-auto flex flex-col md:flex-row gap-3 bg-white/10 p-2 rounded-2xl border border-white/20 backdrop-blur-md">
-                    <div class="flex-1 relative">
-                        <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-emerald-200"></i>
-                        <input type="text" id="searchInput" placeholder="বই, লেখক বা বিষয় দিয়ে অনুসন্ধান করুন..." 
-                            class="w-full py-4 pl-12 pr-4 bg-white rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-400">
-                    </div>
-                    <button onclick="switchToGallery()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-8 py-4 rounded-xl font-bold transition duration-300 shadow-xl">
-                        অনুসন্ধান
-                    </button>
+    <header class="hero-section relative py-20 md:py-32 px-4">
+        <div class="container mx-auto relative z-10 text-center">
+            <h1 class="hero-title text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">পাহাড়ের জ্ঞান ভাণ্ডার এখন <span class="text-emerald-400">ডিজিটাল</span></h1>
+            <p class="text-lg text-emerald-100 mb-10 max-w-2xl mx-auto opacity-90">চাকমা, মারমা, ত্রিপুরাসহ পার্বত্য চট্টগ্রামের সকল ভাষা ও সংস্কৃতির বই সংগ্রহ করুন এক ক্লিকেই।</p>
+            
+            <div class="max-w-2xl mx-auto flex flex-col md:flex-row gap-3 bg-white/10 p-2 rounded-2xl border border-white/20 backdrop-blur-md">
+                <div class="flex-1 relative">
+                    <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-emerald-200"></i>
+                    <input type="text" id="searchInput" placeholder="বই বা লেখক দিয়ে খুঁজুন..." class="w-full py-4 pl-12 pr-6 bg-white rounded-xl text-slate-800 focus:outline-none">
                 </div>
+                <button onclick="switchToGallery()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-8 py-4 rounded-xl font-bold transition shadow-xl">খুঁজুন</button>
             </div>
-        </div>
-        
-        <!-- Decoration Waves -->
-        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
-            <svg class="relative block w-full h-[60px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="#f8fafc"></path>
-            </svg>
         </div>
     </header>
 
     <!-- Library Section -->
-    <main id="books" class="container mx-auto px-4 py-20">
+    <main id="books" class="container mx-auto px-4 py-16">
         <div class="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
-            <div>
-                <h2 id="viewTitle" class="text-3xl font-bold text-slate-900 mb-2 text-center md:text-left">বইয়ের সংগ্রহশালা</h2>
-                <div class="h-1.5 w-24 bg-emerald-600 rounded-full mx-auto md:mx-0"></div>
-            </div>
-            
-            <!-- Custom Styled Filters -->
+            <h2 id="viewTitle" class="text-3xl font-bold text-slate-900">বইয়ের সংগ্রহশালা</h2>
             <div class="flex flex-wrap justify-center gap-2" id="categoryFilters">
-                <button onclick="filterBooks('All')" class="category-btn btn-active px-5 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-600 hover:border-emerald-600 transition-all font-medium">সবগুলো</button>
-                <button onclick="filterBooks('ইতিহাস')" class="category-btn px-5 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-600 hover:border-emerald-600 transition-all font-medium">ইতিহাস</button>
-                <button onclick="filterBooks('সংস্কৃতি')" class="category-btn px-5 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-600 hover:border-emerald-600 transition-all font-medium">সংস্কৃতি</button>
-                <button onclick="filterBooks('ভাষা')" class="category-btn px-5 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-600 hover:border-emerald-600 transition-all font-medium">ভাষা</button>
-                <button onclick="filterBooks('সাহিত্য')" class="category-btn px-5 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-600 hover:border-emerald-600 transition-all font-medium">সাহিত্য</button>
+                <button onclick="filterBooks('All')" class="category-btn btn-active px-5 py-2.5 rounded-xl border border-slate-200 bg-white transition font-medium text-sm shadow-sm">সবগুলো</button>
+                <button onclick="filterBooks('ইতিহাস')" class="category-btn px-5 py-2.5 rounded-xl border border-slate-200 bg-white transition font-medium text-sm shadow-sm">ইতিহাস</button>
+                <button onclick="filterBooks('ভাষা')" class="category-btn px-5 py-2.5 rounded-xl border border-slate-200 bg-white transition font-medium text-sm shadow-sm">ভাষা</button>
+                <button onclick="filterBooks('সংস্কৃতি')" class="category-btn px-5 py-2.5 rounded-xl border border-slate-200 bg-white transition font-medium text-sm shadow-sm">সংস্কৃতি</button>
+                <button onclick="filterBooks('সাহিত্য')" class="category-btn px-5 py-2.5 rounded-xl border border-slate-200 bg-white transition font-medium text-sm shadow-sm">সাহিত্য</button>
             </div>
         </div>
 
-        <!-- Dynamic Content Container -->
-        <div id="contentDisplay">
-            <!-- Books Grid or Preview Sections will be injected here -->
-        </div>
+        <div id="contentDisplay"></div>
 
-        <!-- All Books Button (only shows in Preview All mode) -->
         <div id="allBooksWrapper" class="hidden text-center mt-16">
-            <button onclick="switchToGallery()" class="inline-flex items-center gap-3 bg-emerald-900 text-white px-10 py-4 rounded-full font-bold hover:bg-emerald-700 transition duration-300 shadow-xl">
-                <i class="fas fa-th-large"></i> সকল বই দেখুন ও খুঁজুন
+            <button onclick="switchToGallery()" class="bg-emerald-900 text-white px-10 py-4 rounded-full font-bold hover:bg-emerald-700 transition shadow-2xl transform hover:scale-105">
+                <i class="fas fa-th-list mr-2"></i> সকল বই দেখুন
             </button>
         </div>
 
-        <!-- No Results -->
         <div id="noBooks" class="hidden text-center py-24">
-            <div class="bg-emerald-50 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6">
-                <i class="fas fa-search text-emerald-200 text-4xl"></i>
+            <div class="bg-slate-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-search text-slate-300 text-3xl"></i>
             </div>
-            <h3 class="text-2xl font-bold text-slate-700">কোনো বই পাওয়া যায়নি</h3>
-            <p class="text-slate-500 mt-2">অন্য কোনো নাম বা কি-ওয়ার্ড দিয়ে চেষ্টা করুন।</p>
+            <p class="text-xl text-slate-400 font-medium">দুঃখিত, কোনো বই পাওয়া যায়নি!</p>
         </div>
     </main>
 
-    <!-- About Section -->
-    <section id="about" class="bg-slate-900 py-24 overflow-hidden relative">
-        <div class="absolute top-0 right-0 w-1/3 h-full bg-emerald-600/10 blur-[120px] rounded-full"></div>
-        <div class="container mx-auto px-4 relative z-10">
-            <div class="flex flex-col lg:flex-row items-center gap-16">
-                <div class="lg:w-1/2 space-y-8">
-                    <h2 class="text-4xl font-bold text-white leading-tight">জ্ঞানের আলোয় আলোকিত হোক <br> <span class="text-emerald-500">পার্বত্য চট্টগ্রাম</span></h2>
-                    <p class="text-slate-400 text-lg leading-relaxed">
-                        পার্বত্য চট্টগ্রামের তেরটি ক্ষুদ্র নৃ-গোষ্ঠীর সাংস্কৃতিক বৈচিত্র্য, ভাষা এবং ঐতিহ্য রক্ষার প্রত্যয় নিয়ে আমাদের এই ক্ষুদ্র প্রয়াস। আমরা বিশ্বাস করি, সঠিক তথ্য ও শিক্ষা একটি সমৃদ্ধ জাতি গঠনে সহায়ক।
-                    </p>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        <div class="flex items-start gap-4">
-                            <div class="text-emerald-500 text-2xl mt-1"><i class="fas fa-check-circle"></i></div>
-                            <div>
-                                <h4 class="text-white font-bold mb-1">বিনামূল্যে এক্সেস</h4>
-                                <p class="text-slate-500 text-sm">সকল ই-বই বিনামূল্যে পড়ার সুযোগ।</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-4">
-                            <div class="text-emerald-500 text-2xl mt-1"><i class="fas fa-check-circle"></i></div>
-                            <div>
-                                <h4 class="text-white font-bold mb-1">অফলাইন সুবিধা</h4>
-                                <p class="text-slate-500 text-sm">বইগুলো পিডিএফ ফরম্যাটে ডাউনলোড করার ব্যবস্থা।</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="lg:w-1/2 relative">
-                    <div class="relative z-10 rounded-3xl overflow-hidden shadow-2xl border-8 border-slate-800">
-                        <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&q=80&w=1000" alt="Library" class="w-full">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Footer -->
-    <footer class="bg-white border-t border-slate-100 py-10">
-        <div class="container mx-auto px-4 text-center">
-            <div class="flex items-center justify-center gap-3 mb-6">
+    <footer class="bg-white border-t py-12 text-center">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-center gap-3 mb-4">
                 <div class="bg-emerald-700 text-white w-8 h-8 rounded-lg flex items-center justify-center">
                     <i class="fas fa-layer-group text-sm"></i>
                 </div>
                 <span class="text-xl font-bold text-slate-900">CHT Digital Library</span>
             </div>
-            <p class="text-slate-500 text-sm">© ২০২৪ CHT Digital Library. কারিগরি সহায়তায়: <span class="text-emerald-700 font-bold uppercase">Mazara</span></p>
+            <p class="text-slate-500 text-sm mb-2">পার্বত্য চট্টগ্রামের তেরটি ক্ষুদ্র নৃ-গোষ্ঠীর জ্ঞান ও ঐতিহ্য সংরক্ষণে একটি অবাণিজ্যিক প্রয়াস।</p>
+            <p class="text-slate-400 text-xs">© ২০২৪-২০২৬ সর্বস্বত্ব সংরক্ষিত। কারিগরি সহায়তায়: <span class="text-emerald-700 font-bold uppercase tracking-widest">Mazara</span></p>
         </div>
     </footer>
 
-    <!-- JavaScript -->
+    <!-- Firebase SDK Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+        // GitHub Pages compatibility: Fallback if environment config is missing
+        let firebaseConfig = {};
+        try {
+            if (typeof __firebase_config !== 'undefined') {
+                firebaseConfig = JSON.parse(__firebase_config);
+            }
+        } catch (e) {
+            console.warn("Firebase config not found or invalid. Login features might be limited.");
+        }
+
+        if (firebaseConfig.apiKey) {
+            const app = initializeApp(firebaseConfig);
+            const auth = getAuth(app);
+            const provider = new GoogleAuthProvider();
+
+            const authContainer = document.getElementById('authContainer');
+
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    authContainer.innerHTML = `
+                        <div class="flex items-center gap-3 bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-100">
+                            <img src="${user.photoURL}" class="w-7 h-7 rounded-full border border-emerald-500" alt="Avatar">
+                            <span class="hidden md:inline text-xs font-bold text-emerald-900">${user.displayName.split(' ')[0]}</span>
+                            <button id="logoutBtn" class="text-emerald-700 hover:text-red-600 transition ml-1"><i class="fas fa-power-off"></i></button>
+                        </div>`;
+                    document.getElementById('logoutBtn').addEventListener('click', () => signOut(auth));
+                } else {
+                    setupLoginButton(auth, provider);
+                }
+            });
+        } else {
+            console.log("Firebase is not configured for this session.");
+        }
+
+        function setupLoginButton(auth, provider) {
+            const authContainer = document.getElementById('authContainer');
+            authContainer.innerHTML = `<button id="loginBtn" class="bg-emerald-700 hover:bg-emerald-800 text-white px-6 py-2 rounded-full shadow-md transition transform hover:scale-105 font-medium text-sm">লগইন</button>`;
+            document.getElementById('loginBtn').addEventListener('click', () => {
+                signInWithPopup(auth, provider).catch(err => console.error("Login Error:", err));
+            });
+        }
+    </script>
+
     <script>
+        // Unique Book Database
         const books = [
-            { id: 1, title: "পার্বত্য চট্টগ্রামের আদিবাসী সমাজ", author: "প্রশান্ত ত্রিপুরা", category: "ইতিহাস", cover: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=400", downloads: "১.২কে", pages: "২৫০" },
-            { id: 2, title: "চাকমা জাতির ইতিবৃত্ত", author: "বিরজ কুমার তঞ্চঙ্গ্যা", category: "ইতিহাস", cover: "https://images.unsplash.com/photo-1543004629-1420f545a133?auto=format&fit=crop&q=80&w=400", downloads: "৮৫০", pages: "১৮০" },
-            { id: 3, title: "জুম পাহাড়ে উৎসব", author: "মং হ্লা প্রু", category: "সংস্কৃতি", cover: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&q=80&w=400", downloads: "৫০০", pages: "৯৬" },
-            { id: 4, title: "ম্রো ভাষা ও সংস্কৃতি", author: "গবেষক দল", category: "ভাষা", cover: "https://images.unsplash.com/photo-1476275466078-4007374efbbe?auto=format&fit=crop&q=80&w=400", downloads: "৩১০", pages: "১২০" },
-            { id: 5, title: "পাহাড়ি ছোটগল্প সংকলন", author: "সুহৃদ চাকমা", category: "সাহিত্য", cover: "https://images.unsplash.com/photo-1531988042231-d39a9cc12a9a?auto=format&fit=crop&q=80&w=400", downloads: "২কে", pages: "১৫০" },
-            { id: 6, title: "ত্রিপুরাদের জীবনগাথা", author: "অজ্ঞাতনামা লেখক", category: "সংস্কৃতি", cover: "https://images.unsplash.com/photo-1491841573634-28140fc7ced7?auto=format&fit=crop&q=80&w=400", downloads: "৭২০", pages: "৩২০" },
-            { id: 7, title: "রাজমালা: ত্রিপুরার ইতিহাস", author: "কালীপ্রসন্ন সেন", category: "ইতিহাস", cover: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&q=80&w=400", downloads: "১.৫কে", pages: "৪০০" },
-            { id: 8, title: "মারমা লোকগাঁথা", author: "উ ক্য জ", category: "সাহিত্য", cover: "https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&q=80&w=400", downloads: "৯০০", pages: "১১০" }
+            { id: 101, title: "পার্বত্য চট্টগ্রামের আদিবাসী সমাজ", author: "প্রশান্ত ত্রিপুরা", category: "ইতিহাস", cover: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/drive/folders/1j8EfWVGAjldOY2KH66pbQzz15UDfEuNB" },
+            { id: 102, title: "চাকমা জাতির ইতিবৃত্ত", author: "বিরজ কুমার তঞ্চঙ্গ্যা", category: "ইতিহাস", cover: "https://images.unsplash.com/photo-1543004629-1420f545a133?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/drive/folders/1j8EfWVGAjldOY2KH66pbQzz15UDfEuNB" },
+            { id: 103, title: "চাকমা কথাতারা (ডিকশনারি)", author: "পুলিন বয়ন চাকমা", category: "ভাষা", cover: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/open?id=1htB8QXxTpxYJXzXBWZUOOVCXuOfwPVK_llxSw9hB_68" },
+            { id: 104, title: "চাঙমা বই (৩য় শ্রেণী)", author: "CADC", category: "ভাষা", cover: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/open?id=1-ydtI-2xzl6Tg3ZF1wBa2koa3Te4yjqA" },
+            { id: 105, title: "চাকমা পরিচিতি", author: "সুগত চাকমা", category: "ইতিহাস", cover: "https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/open?id=1CrtG8Ss5TRwQ7SCNpRBcjQ5FMba445_I" },
+            { id: 106, title: "প্রযুক্তিতে চাকমা ভাষার উন্নয়ন", author: "বিভূতি চাকমা", category: "ভাষা", cover: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/open?id=1RwuQvyHpKzy-CsAMYJQOAbYsxuT_q3IW" },
+            { id: 107, title: "চাকমা ওয়ার্ড বুক", author: "সুজন চাকমা", category: "ভাষা", cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/open?id=1ZFjUYq1uXN8I24uEMwgox0aZy8Q_kArR" },
+            { id: 108, title: "বাংলা থেকে চাকমা প্রতিলিপিকরণ", author: "সুজন চাকমা", category: "ভাষা", cover: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/open?id=1DWDzHPpt_unUyhlAMwEfmnuJWMX1wCyDx56ZoyzcJZc" },
+            { id: 109, title: "চাঙমা ভাচ্ আলাম", author: "আর্য্যমিত্র চাকমা", category: "ভাষা", cover: "https://images.unsplash.com/photo-1589998059171-988d887df646?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/open?id=11G2RVMFL-fgKrCjZEs_n-1hV3MGZzSYv" },
+            { id: 110, title: "পাহাড়ি ছোটগল্প সংকলন", author: "সুহৃদ চাকমা", category: "সাহিত্য", cover: "https://images.unsplash.com/photo-1531988042231-d39a9cc12a9a?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/drive/folders/1j8EfWVGAjldOY2KH66pbQzz15UDfEuNB" },
+            { id: 111, title: "ত্রিপুরা সংস্কৃতি ও ঐতিহ্য", author: "বিবিধ গবেষক", category: "সংস্কৃতি", cover: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/drive/folders/1j8EfWVGAjldOY2KH66pbQzz15UDfEuNB" },
+            { id: 112, title: "ম্রো উপকথা", author: "মং হ্লা প্রু", category: "সাহিত্য", cover: "https://images.unsplash.com/photo-1533327325824-76bc3ee62460?auto=format&fit=crop&q=80&w=400", downloadUrl: "https://drive.google.com/drive/folders/1j8EfWVGAjldOY2KH66pbQzz15UDfEuNB" }
         ];
 
         const contentDisplay = document.getElementById('contentDisplay');
@@ -256,136 +228,104 @@
         const allBooksWrapper = document.getElementById('allBooksWrapper');
         const viewTitle = document.getElementById('viewTitle');
 
-        let currentView = 'preview'; // 'preview' or 'gallery'
-        let currentCategory = 'All';
-
-        function createBookCard(book) {
+        function createCard(book) {
             return `
-                <div class="book-card bg-white rounded-2xl md:rounded-3xl overflow-hidden border border-slate-100 shadow-sm flex flex-col group h-full">
-                    <div class="relative overflow-hidden aspect-[3/4]">
-                        <img src="${book.cover}" alt="${book.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                        <div class="absolute top-2 left-2 md:top-4 md:left-4">
-                            <span class="bg-white/90 backdrop-blur-md text-emerald-800 text-[10px] md:text-xs font-bold px-2 md:px-3 py-1 rounded-lg shadow-sm">
-                                ${book.category}
-                            </span>
+                <div class="book-card bg-white rounded-2xl overflow-hidden shadow-sm flex flex-col border border-slate-100 group">
+                    <div class="relative overflow-hidden aspect-[3/4] sm:aspect-auto sm:h-52">
+                        <img src="${book.cover}" alt="${book.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute top-2 left-2">
+                            <span class="text-[9px] font-bold text-emerald-700 bg-emerald-50/90 backdrop-blur px-2 py-1 rounded-lg border border-emerald-100 shadow-sm uppercase tracking-wider">${book.category}</span>
                         </div>
                     </div>
-                    <div class="p-3 md:p-6 flex flex-col flex-1">
-                        <h3 class="font-bold text-slate-800 mb-1 leading-tight group-hover:text-emerald-700 transition line-clamp-2">${book.title}</h3>
-                        <p class="text-slate-500 text-xs md:text-sm mb-3 md:mb-6 font-medium">${book.author}</p>
-                        
-                        <div class="flex items-center justify-between text-[10px] md:text-xs text-slate-400 mb-3 md:mb-6 pt-2 md:pt-4 border-t border-slate-50 meta-text">
-                            <span class="flex items-center gap-1"><i class="fas fa-file-alt"></i> ${book.pages}</span>
-                            <span class="flex items-center gap-1"><i class="fas fa-cloud-download-alt"></i> ${book.downloads}</span>
-                        </div>
-
-                        <div class="mt-auto flex flex-col gap-2">
-                            <a href="#" class="flex items-center justify-center gap-1 w-full bg-emerald-50 text-emerald-700 py-2 md:py-3 rounded-lg md:rounded-xl font-bold hover:bg-emerald-700 hover:text-white transition duration-300 btn-text">
-                                <i class="fas fa-download"></i> ডাউনলোড
-                            </a>
-                        </div>
+                    <div class="p-3 md:p-5 flex-1 flex flex-col">
+                        <h3 class="font-bold text-slate-800 text-sm md:text-base leading-tight mb-1 line-clamp-2 h-10 group-hover:text-emerald-700 transition">${book.title}</h3>
+                        <p class="text-[10px] md:text-xs text-slate-500 mb-4 italic line-clamp-1">${book.author}</p>
+                        <a href="${book.downloadUrl}" target="_blank" class="mt-auto w-full bg-emerald-50 text-emerald-700 text-center py-2 md:py-2.5 rounded-xl font-bold text-[10px] md:text-xs hover:bg-emerald-700 hover:text-white transition duration-300">
+                            <i class="fas fa-arrow-down mr-1"></i> ডাউনলোড
+                        </a>
                     </div>
-                </div>
-            `;
+                </div>`;
         }
 
         function renderPreview() {
-            currentView = 'preview';
             allBooksWrapper.classList.remove('hidden');
             viewTitle.innerText = "বইয়ের সংগ্রহশালা";
             contentDisplay.innerHTML = '';
+            const activeCategories = ["ইতিহাস", "ভাষা", "সংস্কৃতি", "সাহিত্য"];
             
-            const categories = [...new Set(books.map(b => b.category))];
-            
-            categories.forEach(cat => {
+            activeCategories.forEach(cat => {
                 const catBooks = books.filter(b => b.category === cat).slice(0, 4);
                 if(catBooks.length > 0) {
-                    const section = document.createElement('section');
-                    section.className = 'mb-16';
+                    const section = document.createElement('div');
+                    section.className = 'mb-12';
                     section.innerHTML = `
-                        <div class="flex justify-between items-center mb-6">
-                            <h3 class="text-xl md:text-2xl font-bold text-slate-800">${cat}</h3>
-                            <button onclick="filterBooks('${cat}')" class="text-emerald-700 font-bold flex items-center gap-2 hover:gap-3 transition-all">
-                                আরও দেখুন <i class="fas fa-arrow-right text-sm"></i>
-                            </button>
+                        <div class="flex justify-between items-center mb-5">
+                            <h3 class="text-xl font-extrabold text-slate-800 flex items-center gap-2">
+                                <span class="w-1.5 h-6 bg-emerald-600 rounded-full"></span> ${cat}
+                            </h3>
+                            <button onclick="filterBooks('${cat}')" class="text-emerald-700 text-xs font-bold hover:underline transition">আরও দেখুন <i class="fas fa-chevron-right ml-1"></i></button>
                         </div>
-                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
-                            ${catBooks.map(createBookCard).join('')}
-                        </div>
-                    `;
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">${catBooks.map(createCard).join('')}</div>`;
                     contentDisplay.appendChild(section);
                 }
             });
         }
 
         function renderGallery(dataList) {
-            currentView = 'gallery';
             allBooksWrapper.classList.add('hidden');
-            contentDisplay.innerHTML = `<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">${dataList.map(createBookCard).join('')}</div>`;
-            
-            if(dataList.length === 0) {
-                noBooks.classList.remove('hidden');
-            } else {
-                noBooks.classList.add('hidden');
-            }
+            contentDisplay.innerHTML = `<div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">${dataList.map(createCard).join('')}</div>`;
+            noBooks.classList.toggle('hidden', dataList.length > 0);
         }
 
         function filterBooks(category) {
-            currentCategory = category;
-            
-            const buttons = document.querySelectorAll('.category-btn');
-            buttons.forEach(btn => {
-                if(btn.innerText === category || (category === 'All' && btn.innerText === 'সবগুলো')) {
-                    btn.classList.add('btn-active');
-                } else {
-                    btn.classList.remove('btn-active');
-                }
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                const isActive = btn.innerText === category || (category === 'All' && btn.innerText === 'সবগুলো');
+                btn.classList.toggle('btn-active', isActive);
             });
 
             if (category === 'All') {
                 renderPreview();
             } else {
-                viewTitle.innerText = category + " সমাচার";
-                const filtered = books.filter(book => book.category === category);
+                viewTitle.innerText = category;
+                const filtered = books.filter(b => b.category === category);
                 renderGallery(filtered);
+                window.scrollTo({ top: document.getElementById('books').offsetTop - 100, behavior: 'smooth' });
             }
         }
 
-        function switchToGallery() {
-            currentCategory = 'All';
-            viewTitle.innerText = "সকল বই";
-            const buttons = document.querySelectorAll('.category-btn');
-            buttons.forEach(btn => btn.classList.remove('btn-active'));
-            buttons[0].classList.add('btn-active'); // Set 'All' active
-            renderGallery(books);
+        function switchToGallery() { 
+            filterBooks('All'); 
+            renderGallery(books); 
+            viewTitle.innerText = "সকল বইয়ের ভাণ্ডার"; 
             window.scrollTo({ top: document.getElementById('books').offsetTop - 100, behavior: 'smooth' });
         }
 
-        function resetView() {
-            filterBooks('All');
+        function resetView() { 
+            searchInput.value = '';
+            filterBooks('All'); 
+        }
+
+        function toggleMobileMenu() {
+            // Mobile navigation logic can be added here if needed
+            alert("মেনু শীঘ্রই আসছে!"); 
         }
 
         searchInput.addEventListener('input', (e) => {
-            const term = e.target.value.toLowerCase();
-            if(term.length > 0 && currentView === 'preview') {
-                currentView = 'gallery';
-                allBooksWrapper.classList.add('hidden');
-            }
-            
-            const filtered = books.filter(book => 
-                book.title.toLowerCase().includes(term) || 
-                book.author.toLowerCase().includes(term) ||
-                book.category.toLowerCase().includes(term)
-            );
-            
-            if(term === "" && currentCategory === 'All') {
-                renderPreview();
+            const term = e.target.value.toLowerCase().trim();
+            if (term === "") {
+                resetView();
             } else {
+                const filtered = books.filter(b => 
+                    b.title.toLowerCase().includes(term) || 
+                    b.author.toLowerCase().includes(term) ||
+                    b.category.toLowerCase().includes(term)
+                );
                 renderGallery(filtered);
+                viewTitle.innerText = "অনুসন্ধানের ফলাফল";
             }
         });
 
-        window.onload = () => renderPreview();
+        window.onload = renderPreview;
     </script>
 </body>
 </html>
